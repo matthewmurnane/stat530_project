@@ -1,0 +1,34 @@
+---
+title: "Randomizing treatments"
+format: pdf
+---
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+library(tidyverse)
+```
+
+```{r}
+trts <- c("A", "B", "C", "D")
+
+
+a <- 4
+b <- 4
+k <- 3
+r <- 3
+lambda <- 2
+```
+
+```{r}
+set.seed(530) #got lucky, 530 gave us an acceptable BIBD
+t(replicate(b, sample(trts, k, replace = FALSE)))
+```
+
+```{r}
+brands <- c("pliny", "coors", "Siera", "Guinnes")
+
+shuffled_brands <- sample(brands)
+
+assignments <- data.frame(trts, shuffled_brands)
+assignments
+```
+

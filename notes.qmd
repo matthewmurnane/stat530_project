@@ -1,0 +1,11 @@
+---
+title: "Untitled"
+author: "notes"
+format: pdf
+---
+
+1. BIBD, where expected 4 block and block are people. 4 treatments where treatments are different kinds of beer
+
+2. We randomize with R to make the experiment run. Seed 530 gave us a BIBD without further work.
+
+3. The brands of beer: Pliny, Guinness, Sierra, and Coors

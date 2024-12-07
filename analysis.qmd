@@ -6,6 +6,9 @@ format: pdf
 
 ```{r echo=FALSE, warning=FALSE, message=FALSE}
 library(tidyverse)
+library(ggthemes)
+library(tidyr)
+library(knitr)
 ```
 
 
@@ -30,17 +33,59 @@ cleaned_data
 ```
 
 ```{r}
-model <- lm(rating~beers+names,
+model <- lm(rating~names+beers,
              data = cleaned_data)
 resid <- residuals(model)
-```
-
-```{r}
-shapiro.test(resid)
 ```
 
 
 ```{r}
 anova(model)
+```
+
+```{r}
+shapiro.test(resid)
+```
+```{r}
+cleaned_data %>% 
+  ggplot(aes(x = rating,
+             y = beers))+
+  geom_point(size = 2)+
+  theme_few()+
+  ggtitle("Ratings Per Beer")+
+  ylab("Type of Beer")+
+  xlab("Rating")
+```
+
+
+
+```{r}
+cleaned_data %>% 
+  ggplot(aes(x = rating,
+             y = names))+
+  geom_point(size = 2)+
+  theme_few()+
+  ggtitle("Rating Per Subject")+
+  xlab("Subjects")+
+  ylab("Rating")
+```
+
+```{r}
+library(lme4)
+library(lmerTest)
+
+model <- lmer(rating ~ beers + (1 | names), data = cleaned_data)
+```
+
+```{r}
+summary(model)
+```
+```{r}
+raw_data %>%
+  kable(
+    caption = "Beer Ratings by Participant",
+    col.names = c("Beers", "Nolan", "Jon", "Benni", "Zach"),
+    align = "c"
+  )
 ```
 

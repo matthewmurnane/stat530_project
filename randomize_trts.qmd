@@ -24,11 +24,23 @@ t(replicate(b, sample(trts, k, replace = FALSE)))
 ```
 
 ```{r}
-brands <- c("pliny", "coors", "Siera", "Guinnes")
+set.seed(530)
+brands <- c("Pliny", "Coors", "Siera", "Guinnes")
 
 shuffled_brands <- sample(brands)
 
 assignments <- data.frame(trts, shuffled_brands)
 assignments
+```
+
+```{r}
+set.seed(530)
+boys <- c("Zach", "Jon", "Nolan", "Benni")
+rank <- 1:4
+
+shuffled_names <- sample(boys)
+
+order <- data.frame(rank, shuffled_names)
+order
 ```
 

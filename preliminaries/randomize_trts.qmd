@@ -10,7 +10,6 @@ library(tidyverse)
 ```{r}
 trts <- c("A", "B", "C", "D")
 
-
 a <- 4
 b <- 4
 k <- 3
@@ -19,7 +18,7 @@ lambda <- 2
 ```
 
 ```{r}
-set.seed(530) #got lucky, 530 gave us an acceptable BIBD
+set.seed(530)
 t(replicate(b, sample(trts, k, replace = FALSE)))
 ```
 

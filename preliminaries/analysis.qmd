@@ -33,7 +33,7 @@ cleaned_data
 ```
 
 ```{r}
-model <- lm(rating~names+beers,
+model <- lm(rating~beers+names,
              data = cleaned_data)
 resid <- residuals(model)
 ```
@@ -46,6 +46,7 @@ anova(model)
 ```{r}
 shapiro.test(resid)
 ```
+
 ```{r}
 cleaned_data %>% 
   ggplot(aes(x = rating,
@@ -88,4 +89,12 @@ raw_data %>%
     align = "c"
   )
 ```
+
+```{r}
+anove_object <- anova(model)
+
+anove_object %>% 
+  kable
+```
+
 

@@ -15,6 +15,7 @@ library(tidyverse)
 library(ggthemes)
 library(tidyr)
 library(knitr)
+library(kableExtra)
 
 beers <- c("Sierra(Pale_ale)", "Coors(Generic)", "Guinness(Dark)", "Pliny(IPA)")
 Nolan <- c(NA, 6, 5.5, 3)
@@ -49,11 +50,38 @@ cleaned_data <- pivoted_raw_data %>%
 
 
 
-\newpage
 
 \begin{center}
 \textbf{\Large Methods}
 \end{center}
+
+Everything was randomized before starting the experiment. With simple R code and using a `set.seed(530)` we were able to get a correct BIBD set up.
+
+```{r}
+x <- data.frame(p= c("1","2","3","4"),
+                a = c("C", "B", "D", "D"),
+                b = c("B", "C", "A", "B"),
+                c = c("D", "A", "C", "A"))
+kable(x,
+      col.names = c("Participants","I", "II", "III"),
+      align = "c")
+```
+We then randomized the assignments of beer types to the letters and the order of participants, using the same `set.seed(530)`.The table below is are treatment assignments and order assignments
+```{r}
+y <- data.frame(trts = c("A", "B", "C", "D"),
+                beers = c("Siera", "Coors", "Guinnes", "Pliny"),
+                rank = 1:4,
+                participants = c("Zach", "Jon", "Nolan", "Benni"))
+kable(y) %>% 
+  column_spec(3, border_left = TRUE)
+```
+
+
+
+The experiment was conducted inside of Matthew's room. Participants were blind folded before entry into the room, they were seated down and told the following:
+\begin{quote}
+You will be offered three beers during the experiment. You will drink a glass of water, then taste the beer. After tasting you will rate the beer on a scale from 1 to 10. 1 meaning "I never want to drink this again", 5 meaning "this is an okay beer, and 10 meaning "I want a whole glass of this beer right now". Half points are allowed.
+\end{quote}
 
 
 
@@ -64,13 +92,20 @@ cleaned_data <- pivoted_raw_data %>%
 \end{center}
 
 ```{r echo=FALSE}
-raw_data %>%
-  kable(
-    caption = "Beer Ratings by Participant",
-    col.names = c("Beers", "Nolan", "Jon", "Beni", "Zach"),
-    align = "c"
-  )
+col_means <- round(colMeans(raw_data[, -1], na.rm = TRUE), 2)
+
+raw_data_with_col_means <- rbind(raw_data, c("Column Means", col_means))
+
+row_means <- round(apply(raw_data[, -1], 1, mean, na.rm = TRUE), 2)
+
+raw_data_with_means <- cbind(raw_data_with_col_means, Row_Mean = c(row_means, NA))
+
+raw_data_with_means %>%
+  kable(caption = "Beer Ratings by Participant",
+        col.names = c("Beers", "Nolan", "Jon", "Beni", "Zach", "Row Means"),
+        align = "c")
 ```
+
 
 ```{r echo=FALSE}
 cleaned_data %>% 
@@ -94,6 +129,11 @@ cleaned_data %>%
   ylab("Rating")
 ```
 
+```{r echo=FALSE}
+linear_model <- lm(rating~names+beers, data = cleaned_data)
+anova_table <- anova(linear_model)
+kable(anova_table, caption = "ANOVA Table for Linear Model")
+```
 
 
 
@@ -147,10 +187,18 @@ cleaned_data <- pivoted_raw_data %>%
 
 ```{r eval=FALSE}
 #Table
-raw_data %>%
+col_means <- round(colMeans(raw_data[, -1], na.rm = TRUE), 2)
+
+raw_data_with_col_means <- rbind(raw_data, c("Mean", col_means))
+
+row_means <- round(apply(raw_data[, -1], 1, mean, na.rm = TRUE), 2)
+
+raw_data_with_means <- cbind(raw_data_with_col_means, Row_Mean = c(row_means, NA))
+
+raw_data_with_means %>%
   kable(
     caption = "Beer Ratings by Participant",
-    col.names = c("Beers", "Nolan", "Jon", "Beni", "Zach"),
+    col.names = c("Beers", "Nolan", "Jon", "Beni", "Zach", "Row Means"),
     align = "c"
   )
 ```

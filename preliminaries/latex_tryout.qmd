@@ -1,0 +1,12 @@
+---
+title: "Untitled"
+format: pdf
+editor: visual
+---
+$$
+\mu \ne
+$$
+
+
+
+type type $\mu=0$

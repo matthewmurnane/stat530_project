@@ -19,10 +19,10 @@ library(knitr)
 beers <- c("Sierra(Pale_ale)", "Coors(Generic)", "Guinness(Dark)", "Pliny(IPA)")
 Nolan <- c(NA, 6, 5.5, 3)
 Jon <- c(5.5, 6, 3.5, NA)
-Benni <- c(7, NA, 4, 8.5)
+Beni <- c(7, NA, 4, 8.5)
 Zach <- c(2.5, 6.5, NA, 2)
 
-raw_data <- data.frame(beers, Nolan, Jon, Benni, Zach)
+raw_data <- data.frame(beers, Nolan, Jon, Beni, Zach)
 
 pivoted_raw_data <- pivot_longer(raw_data,
                         cols=-beers,
@@ -70,6 +70,28 @@ raw_data %>%
     col.names = c("Beers", "Nolan", "Jon", "Beni", "Zach"),
     align = "c"
   )
+```
+
+```{r echo=FALSE}
+cleaned_data %>% 
+  ggplot(aes(x = rating,
+             y = beers))+
+  geom_point(size = 2)+
+  theme_few()+
+  ggtitle("Ratings Per Beer")+
+  ylab("Type of Beer")+
+  xlab("Rating")
+```
+
+```{r echo=FALSE}
+cleaned_data %>% 
+  ggplot(aes(x = rating,
+             y = names))+
+  geom_point(size = 2)+
+  theme_few()+
+  ggtitle("Rating Per Subject")+
+  xlab("Subjects")+
+  ylab("Rating")
 ```
 
 
@@ -131,5 +153,29 @@ raw_data %>%
     col.names = c("Beers", "Nolan", "Jon", "Beni", "Zach"),
     align = "c"
   )
+```
+
+### Plots
+Code for Plot 1 {.anchor #plot1}
+```{r eval=FALSE}
+cleaned_data %>% 
+  ggplot(aes(x = rating,
+             y = beers))+
+  geom_point(size = 2)+
+  theme_few()+
+  ggtitle("Ratings Per Beer")+
+  ylab("Type of Beer")+
+  xlab("Rating")
+```
+
+```{r eval=FALSE}
+cleaned_data %>% 
+  ggplot(aes(x = rating,
+             y = names))+
+  geom_point(size = 2)+
+  theme_few()+
+  ggtitle("Rating Per Subject")+
+  xlab("Subjects")+
+  ylab("Rating")
 ```
 

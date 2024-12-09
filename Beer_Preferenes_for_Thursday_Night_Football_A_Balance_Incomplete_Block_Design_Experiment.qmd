@@ -1,0 +1,135 @@
+---
+title: "Beer Preferences for Thursday Night Football: A Blanced Incomplete Block Design Experiment"
+author:
+  - name: Matthew Murnane
+  - name: Ethan Newcomb
+format:
+  pdf:
+    mainfont: "Times New Roman"
+indent: true
+fontsize: "12"
+---
+
+```{r include=FALSE}
+library(tidyverse)
+library(ggthemes)
+library(tidyr)
+library(knitr)
+
+beers <- c("Sierra(Pale_ale)", "Coors(Generic)", "Guinness(Dark)", "Pliny(IPA)")
+Nolan <- c(NA, 6, 5.5, 3)
+Jon <- c(5.5, 6, 3.5, NA)
+Benni <- c(7, NA, 4, 8.5)
+Zach <- c(2.5, 6.5, NA, 2)
+
+raw_data <- data.frame(beers, Nolan, Jon, Benni, Zach)
+
+pivoted_raw_data <- pivot_longer(raw_data,
+                        cols=-beers,
+                        names_to = "names",
+                        values_to = "rating")
+
+cleaned_data <- pivoted_raw_data %>% 
+  drop_na(rating)
+```
+
+\newpage
+
+\begin{center}
+\textbf{\Large Abstract}
+\end{center}
+
+
+
+\newpage
+
+\begin{center}
+\textbf{\Large Introduction}
+\end{center}
+
+
+
+\newpage
+
+\begin{center}
+\textbf{\Large Methods}
+\end{center}
+
+
+
+\newpage
+
+\begin{center}
+\textbf{\Large Results}
+\end{center}
+
+```{r echo=FALSE}
+raw_data %>%
+  kable(
+    caption = "Beer Ratings by Participant",
+    col.names = c("Beers", "Nolan", "Jon", "Beni", "Zach"),
+    align = "c"
+  )
+```
+
+
+
+
+\newpage
+
+\begin{center}
+\textbf{\Large Conclusion}
+\end{center}
+
+
+
+\newpage
+
+\begin{center}
+\textbf{\Large Appendix}
+\end{center}
+
+# Code Used
+
+### Libraries Used
+
+```{r eval=FALSE}
+library(tidyverse)
+library(ggthemes)
+library(tidyr)
+library(knitr)
+```
+
+### Data Code
+
+```{r eval=FALSE}
+# Data input
+beers <- c("Sierra(Pale_ale)", "Coors(Generic)", "Guinness(Dark)", "Pliny(IPA)")
+Nolan <- c(NA, 6, 5.5, 3)
+Jon <- c(5.5, 6, 3.5, NA)
+Benni <- c(7, NA, 4, 8.5)
+Zach <- c(2.5, 6.5, NA, 2)
+
+raw_data <- data.frame(beers, Nolan, Jon, Benni, Zach)
+
+# Data Cleaning
+
+pivoted_raw_data <- pivot_longer(raw_data,
+                        cols=-beers,
+                        names_to = "names",
+                        values_to = "rating")
+
+cleaned_data <- pivoted_raw_data %>% 
+  drop_na(rating)
+```
+
+```{r eval=FALSE}
+#Table
+raw_data %>%
+  kable(
+    caption = "Beer Ratings by Participant",
+    col.names = c("Beers", "Nolan", "Jon", "Beni", "Zach"),
+    align = "c"
+  )
+```
+

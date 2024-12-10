@@ -57,7 +57,7 @@ cleaned_data <- pivoted_raw_data %>%
 
 Everything was randomized before starting the experiment. With simple R code and using a `set.seed(530)` we were able to get a correct BIBD set up.
 
-```{r}
+```{r echo=FALSE}
 x <- data.frame(p= c("1","2","3","4"),
                 a = c("C", "B", "D", "D"),
                 b = c("B", "C", "A", "B"),
@@ -67,7 +67,7 @@ kable(x,
       align = "c")
 ```
 We then randomized the assignments of beer types to the letters and the order of participants, using the same `set.seed(530)`.The table below is are treatment assignments and order assignments
-```{r}
+```{r echo=FALSE}
 y <- data.frame(trts = c("A", "B", "C", "D"),
                 beers = c("Siera", "Coors", "Guinnes", "Pliny"),
                 rank = 1:4,

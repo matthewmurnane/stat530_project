@@ -57,7 +57,6 @@ This setting became ideal to test the following research question: What is the b
 \end{center}
 
 Everything was randomized before starting the experiment. With simple R code and using a `set.seed(530)` we were able to get a correct BIBD set up.
-
 ```{r echo=FALSE}
 x <- data.frame(p= c("1","2","3","4"),
                 a = c("C", "B", "D", "D"),
@@ -67,12 +66,12 @@ kable(x,
       col.names = c("Participants","I", "II", "III"),
       align = "c")
 ```
-We then randomized the assignments of beer types to the letters and the order of participants, using the same `set.seed(530)`.The table below is are treatment assignments and order assignments
+We then randomized the assignments of beer types to the letters and the order of participants, using the same `set.seed(530)`.The table below is of treatment assignments and order assignments
 ```{r echo=FALSE}
 y <- data.frame(trts = c("A", "B", "C", "D"),
                 beers = c("Siera", "Coors", "Guinnes", "Pliny"),
                 rank = 1:4,
-                participants = c("Zach", "Jon", "Nolan", "Benni"))
+                participants = c("Zach", "Jon", "Nolan", "Beni"))
 kable(y) %>% 
   column_spec(3, border_left = TRUE)
 ```
@@ -126,8 +125,8 @@ cleaned_data %>%
   geom_point(size = 2)+
   theme_few()+
   ggtitle("Rating Per Subject")+
-  xlab("Subjects")+
-  ylab("Rating")
+  ylab("Subjects")+
+  xlab("Rating")
 ```
 
 ```{r echo=FALSE}
@@ -204,8 +203,27 @@ raw_data_with_means %>%
   )
 ```
 
+### Randomization Code
+
+```{r eval=FALSE}
+# Computing the BIBD matrix
+trts <- c("A", "B", "C", "D")
+set.seed(530)
+t(replicate(4, sample(trts, 3, replace = FALSE)))
+
+# Randomly matching treatments to the letters
+brands <- c("Pliny", "Coors", "Siera", "Guinnes")
+shuffled_brands <- sample(brands)
+assignments <- data.frame(trts, shuffled_brands)
+
+#Randomizing the order of participants/blocks
+boys <- c("Zach", "Jon", "Nolan", "Benni")
+rank <- 1:4
+shuffled_names <- sample(boys)
+order <- data.frame(rank, shuffled_names)
+```
+
 ### Plots
-Code for Plot 1 {.anchor #plot1}
 ```{r eval=FALSE}
 cleaned_data %>% 
   ggplot(aes(x = rating,

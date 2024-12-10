@@ -47,7 +47,8 @@ cleaned_data <- pivoted_raw_data %>%
 \begin{center}
 \textbf{\Large Introduction}
 \end{center}
-
+American football has immensely grown in popularity in recent years. Along with the growth of a national sport comes an increase in social gatherings and alcoholic beverage enjoyment. Weekly Thursday night football games are broadcast on national television and each Thursday, Matthew’s house hosts a watch party along with his roommates. The group enjoys consuming a wide variety of beer, ranging in type and brand. 
+This setting became ideal to test the following research question: What is the beer type that is most favored among the group of friends? Since each individual holds their own inherent biases toward beer, a Balanced Incomplete Block Design (BIBD) is a perfect experimental design. Here, the participants’ preferences for beer are blocked, allowing the effects of beer type to be highlighted without the unwanted effect of the nuisance factor. The data collected will be the participants’ ratings of beers, which differ in type and flavor. The “Balanced Incomplete” part of the experiment comes from the fact that alcohol impairs judgement, so the amount given to the participants should be limited. 
 
 
 

@@ -90,6 +90,10 @@ You will be offered three beers during the experiment. You will drink a glass of
 \begin{center}
 \textbf{\Large Results}
 \end{center}
+The ratings for each participant of their three randomly assigned beers are shown in Table 3. Additionally, the mean rating of each beer type and participant are displayed. It can be observed that the beer type with the highest mean rating is Coors (Generic) at 6.17. On the other hand, Guinness (Dark) received the lowest mean rating at 4.33. The range rating between the highest and lowest mean ratings is 1.84, indicating a relatively small difference between mean ratings of beer type. Regarding participant ratings, the highest mean rating resulted from Beni at 6.5, while the lowest mean rating resulted from Zach at 3.67. The range between these two mean ratings is 2.83, indicating a relatively small difference in participant mean ratings.  
+There appear to be apparent outliers, such as the ratings of 8.5 or 2, which could indicate a significant block effect. However, the ANOVA table results at the end of this section will disprove that notion. 
+
+\
 
 ```{r echo=FALSE}
 col_means <- round(colMeans(raw_data[, -1], na.rm = TRUE), 2)
@@ -105,6 +109,7 @@ raw_data_with_means %>%
         col.names = c("Beers", "Nolan", "Jon", "Beni", "Zach", "Row Means"),
         align = "c")
 ```
+Figure _____ displays a visual representation of Ratings Per Beer. It is relatively difficult to draw a conclusion from this data, given the wide range of data points and their overlapping nature. 
 
 
 ```{r echo=FALSE}
@@ -117,6 +122,8 @@ cleaned_data %>%
   ylab("Type of Beer")+
   xlab("Rating")
 ```
+Figure _____ displays a visual representation of Ratings Per Subject. One possible trend observed in this chart is the different rating tendencies of the participants. Although the data overlaps, a potential trend could be that Beni naturally rates beers higher while Zach naturally rates them lower.  
+
 
 ```{r echo=FALSE}
 cleaned_data %>% 
@@ -128,6 +135,11 @@ cleaned_data %>%
   ylab("Subjects")+
   xlab("Rating")
 ```
+Table 4 displays the ANOVA results from the BIBD design. The p-value for the treatment (type of beer) is 0.3414684. This indicates that the effect of beer type on rating is insignificant, since it is less than 0.05. Also, the p-value for the block  (participant) is 0.4001761. This indicates that the nuisance factor of participant is also insignificant, since it is less than 0.05. 
+
+
+*** maybe we should change "names" to participants or subjects in the ANOVA table***
+
 
 ```{r echo=FALSE}
 linear_model <- lm(rating~names+beers, data = cleaned_data)

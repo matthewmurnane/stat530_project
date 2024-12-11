@@ -18,6 +18,7 @@ lambda <- 2
 ```
 
 ```{r}
+trts <- c("A", "B", "C", "D")
 set.seed(530)
 t(replicate(b, sample(trts, k, replace = FALSE)))
 ```

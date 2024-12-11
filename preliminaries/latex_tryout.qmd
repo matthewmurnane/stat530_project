@@ -10,3 +10,59 @@ $$
 
 
 type type $\mu=0$
+
+
+```{r}
+library(knitr)
+
+# Create a data frame
+raw_data_with_means <- data.frame(
+  Column1 = c(1, 2, 3),
+  Column2 = c(4, 5, 6),
+  Column3 = c("$\\bar{x}$", "$\\sum y$", "$\\alpha + \\beta$")
+)
+
+# Print the table (renders plain text in the console)
+print(raw_data_with_means)
+
+# Render as a LaTeX table in R Markdown
+kable(raw_data_with_means, format = "latex", escape = FALSE)
+```
+```{r}
+library(kableExtra)
+
+# Create raw data
+beers <- c("Sierra(Pale Ale)", "Coors(Generic)", "Guinness(Dark)", "Pliny(IPA)")
+Nolan <- c(NA, 6, 5.5, 3)
+Jon <- c(5.5, 6, 3.5, NA)
+Beni <- c(7, NA, 4, 8.5)
+Zach <- c(2.5, 6.5, NA, 2)
+
+# Create initial data frame
+raw_data <- data.frame(Beers = beers, Nolan, Jon, Beni, Zach)
+
+# Calculate column and row means
+col_means <- round(colMeans(raw_data[, -1], na.rm = TRUE), 2)
+row_means <- round(apply(raw_data[, -1], 1, mean, na.rm = TRUE), 2)
+
+# Add means to the data
+raw_data_with_col_means <- rbind(raw_data, c("Column Means", col_means))
+raw_data_with_means <- cbind(raw_data_with_col_means, Row_Mean = c(row_means, NA))
+
+# Add LaTeX math expression explicitly
+raw_data_with_means[5, 6] <- "$\\hat{\\mu} = 5$"
+
+# Generate table with LaTeX rendering
+raw_data_with_means %>%
+  kable(
+    caption = "Beer Ratings by Participant",
+    col.names = c("Beers", "Nolan", "Jon", "Beni", "Zach", "Row Means"),
+    align = "c",
+    format = "latex",
+    escape = FALSE  # Allow LaTeX math expressions
+  ) %>%
+  column_spec(6, border_left = TRUE) %>% 
+  row_spec(4, hline_after = TRUE)
+
+```
+

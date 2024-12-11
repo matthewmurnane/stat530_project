@@ -30,6 +30,10 @@ cleaned_data <- pivoted_raw_data %>%
   drop_na(rating)
 
 cleaned_data
+
+cleaned_data$rating
+
+mean(cleaned_data$rating)
 ```
 
 ```{r}

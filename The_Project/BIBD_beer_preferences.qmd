@@ -17,21 +17,21 @@ library(tidyr)
 library(knitr)
 library(kableExtra)
 
-beers <- c("Sierra(Pale_ale)", "Coors(Generic)", "Guinness(Dark)", "Pliny(IPA)")
+Beer <- c("Sierra(Pale Ale)", "Coors(Generic)", "Guinness(Dark)", "Pliny(IPA)")
 Nolan <- c(NA, 6, 5.5, 3)
 Jon <- c(5.5, 6, 3.5, NA)
 Beni <- c(7, NA, 4, 8.5)
 Zach <- c(2.5, 6.5, NA, 2)
 
-raw_data <- data.frame(beers, Nolan, Jon, Beni, Zach)
+raw_data <- data.frame(Beer, Nolan, Jon, Beni, Zach)
 
 pivoted_raw_data <- pivot_longer(raw_data,
-                        cols=-beers,
-                        names_to = "names",
-                        values_to = "rating")
+                        cols=-Beer,
+                        names_to = "Participant",
+                        values_to = "Rating")
 
 cleaned_data <- pivoted_raw_data %>% 
-  drop_na(rating)
+  drop_na(Rating)
 ```
 
 \newpage
@@ -47,6 +47,7 @@ cleaned_data <- pivoted_raw_data %>%
 \begin{center}
 \textbf{\Large Introduction}
 \end{center}
+
 American football has immensely grown in popularity in recent years. Along with the growth of a national sport comes an increase in social gatherings and alcoholic beverage enjoyment. Weekly Thursday night football games are broadcast on national television and each Thursday, Matthew’s house hosts a watch party along with his roommates. The group enjoys consuming a wide variety of beer, ranging in type and brand. 
 This setting became ideal to test the following research question: What is the beer type that is most favored among the group of friends? Since each individual holds their own inherent biases toward beer, a Balanced Incomplete Block Design (BIBD) is a perfect experimental design. Here, the participants’ preferences for beer are blocked, allowing the effects of beer type to be highlighted without the unwanted effect of the nuisance factor. The data collected will be the participants’ ratings of beers, which differ in type and flavor. The “Balanced Incomplete” part of the experiment comes from the fact that alcohol impairs judgement, so the amount given to the participants should be limited. 
 
@@ -56,44 +57,94 @@ This setting became ideal to test the following research question: What is the b
 \textbf{\Large Methods}
 \end{center}
 
-Everything was randomized before starting the experiment. With simple R code and using a `set.seed(530)` we were able to get a correct BIBD set up.
+There are four participants in this study: Zach, Jon, Nolan and Beni. All are male, in their young twenties and beer drinkers. These four participants constituted the entire population of interest in our study.
+
+The constraints of a BIBD design are that when not all treatments can be assigned to each block a subset of those treatments are assigned. To ensure equal precision of estimation of each treatment: Each treatment appears in the same number of block, each treatment has the same replication and there are the same number of pairwise comparisons. A BIBD experiment satisfies the following relation:
+
+$$
+\begin{aligned}
+\text{a}\cdot\text{r} &= \text{b}\cdot\text{k} \\
+\text{where, } a &= \text{number of treatments in the experiment,} \\
+r &= \text{number of blocks which any one treatment appears,} \\
+b &= \text{number of blocks in the experiment,} \\
+k &= \text{number of treatments per block}
+\end{aligned}
+$$
+We are interested in testing four kinds of beers: A dark, pale ale, IPA, and a generic beer. The brands used for this were such as Guinness for the dark beer, Sierra Nevada for Pale Ale option, Pliny the Elder for IPA and Coors like for the generic beer. That is $\text{a}=4$ treatment options. Our introduction explained the desire to limit the number of beers tasted because alcoholic consumption impairs judgement. To medicate the affect of alcohol on judgement we will limit the number of beers to $\text{k}=3$. With the number of participants being $\text{b}=4$ we will insure that only any given beer appears only $\text{r}=3$ across all blocks. We then have:
+
+$$
+\begin{aligned}
+\text{a}\cdot\text{r} &= \text{b}\cdot\text{k} \\
+4 \cdot 3 &= 4 \cdot 3 \\
+12 &= 12
+\end{aligned}
+$$
+Satisfying the relation proved we can have a valid BIBD experiment.
+
+Everything was randomized before starting the experiment. With simple R code (can be found the the Appendix) and using a `set.seed(530)` we were able to get a correct BIBD set up found in Table 1.
 ```{r echo=FALSE}
-x <- data.frame(p= c("1","2","3","4"),
+x <- data.frame(p = c("1","2","3","4"),
                 a = c("C", "B", "D", "D"),
                 b = c("B", "C", "A", "B"),
                 c = c("D", "A", "C", "A"))
 kable(x,
-      col.names = c("Participants","I", "II", "III"),
+      caption = "Blanced Incomplete Block Design Setup",
+      col.names = c("Participant","I", "II", "III"),
       align = "c")
 ```
-We then randomized the assignments of beer types to the letters and the order of participants, using the same `set.seed(530)`.The table below is of treatment assignments and order assignments
+We then randomized the assignments of beer types to the letters and the order of participants, using the same `set.seed(530)`.The table below is of treatment assignments and order assignments.
 ```{r echo=FALSE}
-y <- data.frame(trts = c("A", "B", "C", "D"),
-                beers = c("Siera", "Coors", "Guinnes", "Pliny"),
-                rank = 1:4,
-                participants = c("Zach", "Jon", "Nolan", "Beni"))
-kable(y) %>% 
+y <- data.frame(Treatment = c("A", "B", "C", "D"),
+                Beer = c("Sierra", "Coors", "Guinness", "Pliny"),
+                Order = 1:4,
+                Participant = c("Zach", "Jon", "Nolan", "Beni"))
+kable(y,
+      caption = "Randomization of Treatments and Participants") %>% 
   column_spec(3, border_left = TRUE)
 ```
+The Materials used for the experiment were red solo cups, a pitcher of water, a tablet for recording the ratings, and a blindfold. The red solo cups allowed for the participants to not feel the kind of can the beer came in. This was neccesary to keep them from making guesses that cold affect their judgement.
 
-
-
-The experiment was conducted inside of Matthew's room. Participants were blind folded before entry into the room, they were seated down and told the following:
+The experiment was conducted inside of a separate room from the watch party. Participants were blind folded before entry into the room. The blindfold was necessary so that participates did not see what beers were being offered and what beers had already been open. It was best for the experiment that the only sense allowed was the sense of taste. They were led into the room, seated down and told the following:
 \begin{quote}
-You will be offered three beers during the experiment. You will drink a glass of water, then taste the beer. After tasting you will rate the beer on a scale from 1 to 10. 1 meaning "I never want to drink this again", 5 meaning "this is an okay beer, and 10 meaning "I want a whole glass of this beer right now". Half points are allowed.
+You will be offered three beers during the experiment. You will be given a glass of water to cleanse your palate before the tasting begins and another glass of water in between each tasting of beer. After tasting you will rate the beer on a scale from 1 to 10. 1 meaning "I never want to drink this again", 5 meaning "this is an okay beer, and 10 meaning "I want a whole glass of this beer right now". Half points are allowed.
 \end{quote}
+Participants were then given a glass of water to start and then a cup of beer in the kind and order dictated by Tables 1 & 2. After each tasting the participant was given as much time as needed to give the tasted beer an appropriate rating. Ratings were documented on tablet device and transferred into the code found in the Appendix directly after the experiment concluded.
+
+\begin{center}
+\textbf{\large The Design}
+\end{center}
+
+In summary, we conducted a Balanced Incomplete Block Design where the experimental units are the participants during a specific tasting, the measurement is the rating given by the participant after the tasting, the treatments are the four different kinds of beer and the block are the participants.
+
+A Balanced Incomplete Block Design in analyzed using ANOVA.
 
 
+The hypothesis:
 
-\newpage
+$$
+\begin{aligned}
+\text{H}_0&: \text{All kinds of beer are like equally, } \mu_i =  \mu_{i'} \ \forall i \ne i' \\
+\text{H}_1&: \text{Atleast one beer is not liked equally, } \mu_i \ne \mu_{i'} \ \text{for atleast one pair} \ i \ne i'
+\end{aligned}
+$$
+The model:
+
+$$
+\begin{aligned}
+y_{ij} = \mu + \tau_i+\beta_j +\epsilon_{ij} \quad
+&\text{where } i = 1, 2, 3, 4 \ \text{and} \ j = 1, 2, 3, 4 \\
+&\text{ and where, } \  \Sigma_{i=1}^4 \tau_i=0 \ \text{ and } \ \Sigma_{j=1}^4 \beta_j=0
+\end{aligned}
+$$
+Note that not all $y_{ij}$ exist.
 
 \begin{center}
 \textbf{\Large Results}
 \end{center}
-The ratings for each participant of their three randomly assigned beers are shown in Table 3. Additionally, the mean rating of each beer type and participant are displayed. It can be observed that the beer type with the highest mean rating is Coors (Generic) at 6.17. On the other hand, Guinness (Dark) received the lowest mean rating at 4.33. The range rating between the highest and lowest mean ratings is 1.84, indicating a relatively small difference between mean ratings of beer type. Regarding participant ratings, the highest mean rating resulted from Beni at 6.5, while the lowest mean rating resulted from Zach at 3.67. The range between these two mean ratings is 2.83, indicating a relatively small difference in participant mean ratings.  
-There appear to be apparent outliers, such as the ratings of 8.5 or 2, which could indicate a significant block effect. However, the ANOVA table results at the end of this section will disprove that notion. 
 
-\
+The ratings for each participant of their three randomly assigned beers are shown in Table 3. Additionally, the mean rating of each beer type and participant are displayed. It can be observed that the beer type with the highest mean rating is Coors (Generic) at 6.17. On the other hand, Guinness (Dark) received the lowest mean rating at 4.33. The range rating between the highest and lowest mean ratings is 1.84, indicating a relatively small difference between mean ratings of beer type. Regarding participant ratings, the highest mean rating resulted from Beni at 6.5, while the lowest mean rating resulted from Zach at 3.67. The range between these two mean ratings is 2.83, indicating a relatively small difference in participant mean ratings.
+
+There appear to be apparent outliers, such as the ratings of 8.5 or 2, which could indicate a significant block effect. However, the ANOVA table results at the end of this section will disprove that notion. 
 
 ```{r echo=FALSE}
 col_means <- round(colMeans(raw_data[, -1], na.rm = TRUE), 2)
@@ -104,52 +155,70 @@ row_means <- round(apply(raw_data[, -1], 1, mean, na.rm = TRUE), 2)
 
 raw_data_with_means <- cbind(raw_data_with_col_means, Row_Mean = c(row_means, NA))
 
+raw_data_with_means[5, 6] <- "$\\hat{\\mu} = 5$"
+
 raw_data_with_means %>%
   kable(caption = "Beer Ratings by Participant",
-        col.names = c("Beers", "Nolan", "Jon", "Beni", "Zach", "Row Means"),
-        align = "c")
+        col.names = c("Beer", "Nolan", "Jon", "Beni", "Zach", "Row Means"),
+        align = "c",
+        format ="latex",
+        escape = FALSE) %>%
+  kable_styling(latex_options = "hold_position") %>% 
+  column_spec(6, border_left = TRUE) %>% 
+  row_spec(4, hline_after = TRUE)
 ```
-Figure _____ displays a visual representation of Ratings Per Beer. It is relatively difficult to draw a conclusion from this data, given the wide range of data points and their overlapping nature. 
-
+Figure 1 displays a visual representation of Ratings Per Beer. It is relatively difficult to draw a conclusion from this data, given the wide range of data points and their overlapping nature. 
 
 ```{r echo=FALSE}
 cleaned_data %>% 
-  ggplot(aes(x = rating,
-             y = beers))+
-  geom_point(size = 2)+
+  ggplot(aes(x = Rating,
+             y = Beer))+
+  geom_point(size = 1.5)+
   theme_few()+
-  ggtitle("Ratings Per Beer")+
+  ggtitle("Figure 1: Ratings Per Beer")+
   ylab("Type of Beer")+
-  xlab("Rating")
+  xlab("Rating")+
+  theme(plot.title = element_text(hjust = 0.5))
 ```
-Figure _____ displays a visual representation of Ratings Per Subject. One possible trend observed in this chart is the different rating tendencies of the participants. Although the data overlaps, a potential trend could be that Beni naturally rates beers higher while Zach naturally rates them lower.  
-
+Figure 2 displays a visual representation of Ratings Per Subject. One possible trend observed in this chart is the different rating tendencies of the participants. Although the data overlaps, a potential trend could be that Beni naturally rates beers higher while Zach naturally rates them lower.  
 
 ```{r echo=FALSE}
 cleaned_data %>% 
-  ggplot(aes(x = rating,
-             y = names))+
-  geom_point(size = 2)+
+  ggplot(aes(x = Rating,
+             y = Participant))+
+  geom_point(size = 1.5)+
   theme_few()+
-  ggtitle("Rating Per Subject")+
-  ylab("Subjects")+
-  xlab("Rating")
+  ggtitle("Figure 2: Rating Per Subject")+
+  ylab("Participant")+
+  xlab("Rating")+
+  theme(plot.title = element_text(hjust = 0.5))
 ```
-Table 4 displays the ANOVA results from the BIBD design. The p-value for the treatment (type of beer) is 0.3414684. This indicates that the effect of beer type on rating is insignificant, since it is less than 0.05. Also, the p-value for the block  (participant) is 0.4001761. This indicates that the nuisance factor of participant is also insignificant, since it is less than 0.05. 
-
-
-*** maybe we should change "names" to participants or subjects in the ANOVA table***
-
+Table 4 displays the ANOVA results from the BIBD design. The p-value for the treatment (type of beer) is 0.40. and the p-value for the block  (participant) is 0.34. Meaning that our factor of interest and blocking factor are both insignificant.
 
 ```{r echo=FALSE}
-linear_model <- lm(rating~names+beers, data = cleaned_data)
+linear_model <- lm(Rating~Participant+Beer, data = cleaned_data)
 anova_table <- anova(linear_model)
-kable(anova_table, caption = "ANOVA Table for Linear Model")
+rounded_anova_table <- anova_table
+rounded_anova_table[] <- lapply(anova_table, function(x) {
+  if (is.numeric(x)) round(x, 2) else x
+})
+kable(rounded_anova_table,
+      caption = "ANOVA Table for Linear Model")
 ```
 
 
+\begin{center}
+\textbf{\large Post Hoc Analysis}
+\end{center}
 
-\newpage
+Even though the ANOVA failed to reject our null hypothesis that all beer types were liked equally. It is still interesting to see confidence intervals for pairwise comparisons. We will use Scheffe's test, because we did not plan on making pairwise confidence intervals and and the conservative nature of the test is important to controlling any type I errors.
+
+```{r echo=FALSE}
+model <- aov(Rating~Participant+Beer, data = cleaned_data)
+ScheffeTest(model)
+```
+Every single interval contains zero. Not suprising at all.
+
 
 \begin{center}
 \textbf{\Large Conclusion}
@@ -240,7 +309,7 @@ order <- data.frame(rank, shuffled_names)
 cleaned_data %>% 
   ggplot(aes(x = rating,
              y = beers))+
-  geom_point(size = 2)+
+  geom_point(size = 1.5)+
   theme_few()+
   ggtitle("Ratings Per Beer")+
   ylab("Type of Beer")+
@@ -251,10 +320,23 @@ cleaned_data %>%
 cleaned_data %>% 
   ggplot(aes(x = rating,
              y = names))+
-  geom_point(size = 2)+
+  geom_point(size = 1.5)+
   theme_few()+
   ggtitle("Rating Per Subject")+
   xlab("Subjects")+
   ylab("Rating")
+```
+
+### Anova Table
+
+```{r eval=FALSE}
+linear_model <- lm(Rating~Participant+Beer, data = cleaned_data)
+anova_table <- anova(linear_model)
+rounded_anova_table <- anova_table
+rounded_anova_table[] <- lapply(anova_table, function(x) {
+  if (is.numeric(x)) round(x, 2) else x
+})
+kable(rounded_anova_table,
+      caption = "ANOVA Table for Linear Model")
 ```
 

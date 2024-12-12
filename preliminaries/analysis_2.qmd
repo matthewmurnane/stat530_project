@@ -1,0 +1,47 @@
+---
+title: "analysis_2"
+format: pdf
+editor: visual
+---
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(ggthemes)
+library(tidyr)
+library(knitr)
+library(DescTools)
+```
+
+
+```{r warning=FALSE}
+beers <- c("Sierra(Pale_ale)", "Coors(Generic)", "Guinness(Dark)", "Pliny(IPA)")
+Nolan <- c(NA, 6, 5.5, 3)
+Jon <- c(5.5, 6, 3.5, NA)
+Benni <- c(7, NA, 4, 8.5)
+Zach <- c(2.5, 6.5, NA, 2)
+
+raw_data <- data.frame(beers, Nolan, Jon, Benni, Zach)
+
+pivoted_raw_data <- pivot_longer(raw_data,
+                        cols=-beers,
+                        names_to = "names",
+                        values_to = "rating")
+
+cleaned_data <- pivoted_raw_data %>% 
+  drop_na(rating)
+```
+
+```{r}
+cleaned_data
+```
+
+
+```{r}
+lm_model <- lm(rating~names+beers, data = cleaned_data)
+anova(lm_model)
+```
+```{r}
+model <- aov(rating~names+beers, data = cleaned_data)
+ScheffeTest(model)
+ScheffeTest(lm_model)
+```
+

@@ -16,6 +16,7 @@ library(ggthemes)
 library(tidyr)
 library(knitr)
 library(kableExtra)
+library(DescTools)
 
 Beer <- c("Sierra(Pale Ale)", "Coors(Generic)", "Guinness(Dark)", "Pliny(IPA)")
 Nolan <- c(NA, 6, 5.5, 3)
@@ -136,7 +137,7 @@ y_{ij} = \mu + \tau_i+\beta_j +\epsilon_{ij} \quad
 &\text{ and where, } \  \Sigma_{i=1}^4 \tau_i=0 \ \text{ and } \ \Sigma_{j=1}^4 \beta_j=0
 \end{aligned}
 $$
-Note that not all $y_{ij}$ exist.
+Note that not all $y_{ij}$ exist and we assume $\epsilon_{ij} ~ N(0, \sigma^2)$
 
 \begin{center}
 \textbf{\Large Results}
@@ -217,7 +218,8 @@ Even though the ANOVA failed to reject our null hypothesis that all beer types w
 model <- aov(Rating~Participant+Beer, data = cleaned_data)
 ScheffeTest(model)
 ```
-Every single interval contains zero. Not suprising at all.
+
+Every single interval contains zero. This lead us to wonder what 
 
 
 \begin{center}

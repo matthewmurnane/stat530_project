@@ -57,7 +57,7 @@ This setting became ideal to test the following research question: What is the b
 \textbf{\Large Methods}
 \end{center}
 
-There are four participants in this study: Zach, Jon, Nolan and Beni. All are male, in their young twenties and beer drinkers. These four participants constituted the entire population of interest in our study.
+There are four participants in this study: Zach, Jon, Nolan and Beni. All are male, in their young twenties and beer drinkers. These four participants constituted the entire population of interest in our study. Because of this there is no need for a mixed effects model where participants are random.
 
 The constraints of a BIBD design are that when not all treatments can be assigned to each block a subset of those treatments are assigned. To ensure equal precision of estimation of each treatment: Each treatment appears in the same number of block, each treatment has the same replication and there are the same number of pairwise comparisons. A BIBD experiment satisfies the following relation:
 
@@ -70,7 +70,7 @@ b &= \text{number of blocks in the experiment,} \\
 k &= \text{number of treatments per block}
 \end{aligned}
 $$
-We are interested in testing four kinds of beers: A dark, pale ale, IPA, and a generic beer. The brands used for this were such as Guinness for the dark beer, Sierra Nevada for Pale Ale option, Pliny the Elder for IPA and Coors like for the generic beer. That is $\text{a}=4$ treatment options. Our introduction explained the desire to limit the number of beers tasted because alcoholic consumption impairs judgement. To medicate the affect of alcohol on judgement we will limit the number of beers to $\text{k}=3$. With the number of participants being $\text{b}=4$ we will insure that only any given beer appears only $\text{r}=3$ across all blocks. We then have:
+We are interested in testing four kinds of beers: A dark beer, pale ale, IPA, and a generic beer. The brands used for this were such as Guinness for the dark beer, Sierra Nevada for pale ale option, Pliny the Elder for IPA and Coors light for the generic beer. That is $\text{a}=4$ treatment options. Our introduction explained the desire to limit the number of beers tasted because alcoholic consumption impairs judgement. To medicate the affect of alcohol on judgement we will limit the number of beers to $\text{k}=3$. With the number of participants being $\text{b}=4$ we will insure that only any given beer appears only $\text{r}=3$ across all blocks. We then have:
 
 $$
 \begin{aligned}
@@ -102,25 +102,20 @@ kable(y,
       caption = "Randomization of Treatments and Participants") %>% 
   column_spec(3, border_left = TRUE)
 ```
-The Materials used for the experiment were red solo cups, a pitcher of water, a tablet for recording the ratings, and a blindfold. The red solo cups allowed for the participants to not feel the kind of can the beer came in. This was neccesary to keep them from making guesses that cold affect their judgement.
+The Materials used for the experiment were red solo cups, a pitcher of water, a tablet for recording the ratings, and a blindfold. The red solo cups allowed for the participants to not feel the can that the beer came in. This was necessary to keep them from making guesses that could affect their judgement.
 
 The experiment was conducted inside of a separate room from the watch party. Participants were blind folded before entry into the room. The blindfold was necessary so that participates did not see what beers were being offered and what beers had already been open. It was best for the experiment that the only sense allowed was the sense of taste. They were led into the room, seated down and told the following:
 \begin{quote}
-You will be offered three beers during the experiment. You will be given a glass of water to cleanse your palate before the tasting begins and another glass of water in between each tasting of beer. After tasting you will rate the beer on a scale from 1 to 10. 1 meaning "I never want to drink this again", 5 meaning "this is an okay beer, and 10 meaning "I want a whole glass of this beer right now". Half points are allowed.
+You will be offered three beers during the experiment. You will be given a glass of water to cleanse your palate before the tasting begins and another glass of water in between each tasting of beer. After tasting you will rate the beer on a scale from 1 to 10. 1 meaning "I never want to drink this again", 5 meaning "this is an okay beer", and 10 meaning "I want a whole glass of this beer right now". Half points are allowed.
 \end{quote}
-Participants were then given a glass of water to start and then a cup of beer in the kind and order dictated by Tables 1 & 2. After each tasting the participant was given as much time as needed to give the tasted beer an appropriate rating. Ratings were documented on tablet device and transferred into the code found in the Appendix directly after the experiment concluded.
+Participants were then given a glass of water to start and then a cup of beer in the kind and order dictated by Tables 1 & 2. After each tasting the participant was given as much time as needed to give the tasted beer an appropriate rating. Ratings were documented on the tablet device and transferred into the code found in the Appendix directly after the experiment concluded.
 
-\begin{center}
 \textbf{\large The Design}
-\end{center}
 
 In summary, we conducted a Balanced Incomplete Block Design where the experimental units are the participants during a specific tasting, the measurement is the rating given by the participant after the tasting, the treatments are the four different kinds of beer and the block are the participants.
-
 A Balanced Incomplete Block Design in analyzed using ANOVA.
 
-
 The hypothesis:
-
 $$
 \begin{aligned}
 \text{H}_0&: \text{All kinds of beer are like equally, } \mu_i =  \mu_{i'} \ \forall i \ne i' \\
@@ -136,7 +131,7 @@ y_{ij} = \mu + \tau_i+\beta_j +\epsilon_{ij} \quad
 &\text{ and where, } \  \Sigma_{i=1}^4 \tau_i=0 \ \text{ and } \ \Sigma_{j=1}^4 \beta_j=0
 \end{aligned}
 $$
-Note that not all $y_{ij}$ exist and we assume $\epsilon_{ij} ~ N(0, \sigma^2)$
+Note that not all $y_{ij}$ exist and we assume $\epsilon_{ij} \sim N(0, \sigma^2)$
 
 \begin{center}
 \textbf{\Large Results}
@@ -207,9 +202,8 @@ kable(rounded_anova_table,
 ```
 
 
-\begin{center}
+
 \textbf{\large Post Hoc Analysis}
-\end{center}
 
 Even though the ANOVA failed to reject our null hypothesis that all beer types were liked equally. It is still interesting to see confidence intervals for pairwise comparisons. We will use Tukey's HSD test, because we desire to look at all pairs of treatment means.
 
@@ -225,9 +219,9 @@ kable(test$Beer[1:6, 1:3],
 ```
 
 
-Table 5 confirms our ANOVA results. That is every Confidence interval contains the value of zero. We recognize that the block factor is not the factor of interest here, but for the sake of the post hoc we'll calculate the CI's using Tukey's HSD as well.
+Table 5 confirms our ANOVA results. That is every Confidence interval contains the value of zero. Interestingly Pairs involving Coors light have the highest estimated difference. We recognize that the block factor is not the factor of interest here, but for the sake of the post hoc we'll calculate the CI's using Tukey's HSD as well.
 
-```{r}
+```{r echo=FALSE}
 kable(test$Participant[1:6, 1:3],
       col.names = c("Pairs", "Estimated Difference", "Lower Bound", "Upper Bound"),
       align = "c",
@@ -236,7 +230,7 @@ kable(test$Participant[1:6, 1:3],
       escape = TRUE)
 ```
 
-Again, no surprise here. Zero is contained in every interval.
+Table 6 shows us that there is not block effect. Looking at the estimated differences it seems that Nolan-Jon have the most similar taste, while zach-beni differ most out of the pairs. Ofcourse, neither of this are statistically significant.
 
 \begin{center}
 \textbf{\Large Conclusion}
@@ -367,7 +361,6 @@ cleaned_data %>%
   ylab("Rating")
 ```
 
-
 ### Anova Table
 
 ```{r eval=FALSE}
@@ -383,7 +376,7 @@ kable(rounded_anova_table,
 
 ### Post Hoc
 
-```{r}
+```{r eval=FALSE}
 model <- aov(Rating~Participant+Beer, data = cleaned_data)
 test <- TukeyHSD(model)
 ```

@@ -16,7 +16,6 @@ library(ggthemes)
 library(tidyr)
 library(knitr)
 library(kableExtra)
-library(DescTools)
 
 Beer <- c("Sierra(Pale Ale)", "Coors(Generic)", "Guinness(Dark)", "Pliny(IPA)")
 Nolan <- c(NA, 6, 5.5, 3)
@@ -41,7 +40,7 @@ cleaned_data <- pivoted_raw_data %>%
 \textbf{\Large Abstract}
 \end{center}
 
-
+A Balanced Incomplete Block Design was utilized during a weekly Thursday night football watch party to test a friend groups beer taste. The study involved four participants and four kinds of beer. The $H_0$ stated that all beers were liked equally and $H_1$ stated that at least one beer was not liked equally. Ultimately, we failed to reject the null hypothesis.
 
 \newpage
 
@@ -212,15 +211,32 @@ kable(rounded_anova_table,
 \textbf{\large Post Hoc Analysis}
 \end{center}
 
-Even though the ANOVA failed to reject our null hypothesis that all beer types were liked equally. It is still interesting to see confidence intervals for pairwise comparisons. We will use Scheffe's test, because we did not plan on making pairwise confidence intervals and and the conservative nature of the test is important to controlling any type I errors.
+Even though the ANOVA failed to reject our null hypothesis that all beer types were liked equally. It is still interesting to see confidence intervals for pairwise comparisons. We will use Tukey's HSD test, because we desire to look at all pairs of treatment means.
 
 ```{r echo=FALSE}
 model <- aov(Rating~Participant+Beer, data = cleaned_data)
-ScheffeTest(model)
+test <- TukeyHSD(model)
+kable(test$Beer[1:6, 1:3],
+      col.names = c("Pairs", "Estimated Difference", "Lower Bound", "Upper Bound"),
+      align = "c",
+      caption = "CI Pairwise Comparison of Beers found with Tukey's HSD Test with sig. level = 0.05",
+      digits = 2,
+      escape = TRUE)
 ```
 
-Every single interval contains zero. This lead us to wonder what 
 
+Table 5 confirms our ANOVA results. That is every Confidence interval contains the value of zero. We recognize that the block factor is not the factor of interest here, but for the sake of the post hoc we'll calculate the CI's using Tukey's HSD as well.
+
+```{r}
+kable(test$Participant[1:6, 1:3],
+      col.names = c("Pairs", "Estimated Difference", "Lower Bound", "Upper Bound"),
+      align = "c",
+      caption = "CI Pairwise Comparison of Participants found with Tukey's HSD Test with sig. level = 0.05",
+      digits = 2,
+      escape = TRUE)
+```
+
+Again, no surprise here. Zero is contained in every interval.
 
 \begin{center}
 \textbf{\Large Conclusion}
@@ -243,6 +259,26 @@ library(tidyverse)
 library(ggthemes)
 library(tidyr)
 library(knitr)
+```
+
+### Randomization Code
+
+```{r eval=FALSE}
+# Computing the BIBD matrix
+trts <- c("A", "B", "C", "D")
+set.seed(530)
+t(replicate(4, sample(trts, 3, replace = FALSE)))
+
+# Randomly matching treatments to the letters
+brands <- c("Pliny", "Coors", "Siera", "Guinnes")
+shuffled_brands <- sample(brands)
+assignments <- data.frame(trts, shuffled_brands)
+
+#Randomizing the order of participants/blocks
+boys <- c("Zach", "Jon", "Nolan", "Benni")
+rank <- 1:4
+shuffled_names <- sample(boys)
+order <- data.frame(rank, shuffled_names)
 ```
 
 ### Data Code
@@ -286,26 +322,6 @@ raw_data_with_means %>%
   )
 ```
 
-### Randomization Code
-
-```{r eval=FALSE}
-# Computing the BIBD matrix
-trts <- c("A", "B", "C", "D")
-set.seed(530)
-t(replicate(4, sample(trts, 3, replace = FALSE)))
-
-# Randomly matching treatments to the letters
-brands <- c("Pliny", "Coors", "Siera", "Guinnes")
-shuffled_brands <- sample(brands)
-assignments <- data.frame(trts, shuffled_brands)
-
-#Randomizing the order of participants/blocks
-boys <- c("Zach", "Jon", "Nolan", "Benni")
-rank <- 1:4
-shuffled_names <- sample(boys)
-order <- data.frame(rank, shuffled_names)
-```
-
 ### Plots
 ```{r eval=FALSE}
 cleaned_data %>% 
@@ -329,6 +345,7 @@ cleaned_data %>%
   ylab("Rating")
 ```
 
+
 ### Anova Table
 
 ```{r eval=FALSE}
@@ -341,4 +358,12 @@ rounded_anova_table[] <- lapply(anova_table, function(x) {
 kable(rounded_anova_table,
       caption = "ANOVA Table for Linear Model")
 ```
+
+### Post Hoc
+
+```{r}
+model <- aov(Rating~Participant+Beer, data = cleaned_data)
+test <- TukeyHSD(model)
+```
+
 

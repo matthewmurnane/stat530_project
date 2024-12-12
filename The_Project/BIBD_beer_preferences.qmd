@@ -226,6 +226,28 @@ Every single interval contains zero. This lead us to wonder what
 \textbf{\Large Conclusion}
 \end{center}
 
+Discussion
+Main Results:
+The primary aim of this study was to identify the most favored beer type among a group of friends during Thursday Night Football watch parties using a Balanced Incomplete Block Design (BIBD). The results indicate that among the four types of beer tested—Guinness (Dark), Sierra Nevada (Pale Ale), Pliny the Elder (IPA), and Coors (Generic)—Coors received the highest mean rating (6.17), while Guinness received the lowest (4.33). However, the statistical analysis via ANOVA did not show significant differences in preference among the beer types (p-value = 0.40), nor did it show a significant effect from the participants as blocks (p-value = 0.34).
+
+Most Important Results:
+The key takeaway from our experiment is that there was no statistically significant preference for any specific beer type among the participants. This suggests that within the small group of friends, beer preference might be more similar than anticipated, or perhaps the design did not capture the variability in taste preference. The lack of significance in the blocking effect indicates that individual participant biases did not significantly influence the ratings, suggesting that we might not need to block by participant in future experiments with similar designs.
+
+Suggestions for Future Experiments:
+Increase Sample Size: The small number of participants (four) might not provide enough statistical power to detect differences reliably. A larger sample could help in distinguishing preferences more clearly.
+Expand Beer Selection: Including more varieties or brands within each beer category might reveal more subtle preferences among the participants.
+Better Control Palate Cleansing: Although water was provided to cleanse the palate, the sensory overload from tasting multiple beers might have affected later judgments. The use of bland crackers or taking breaks between tastings could better ensure an even judgement of each beer type.
+Power: For future experiments, the data obtained from this experiment could be used to help calculate the variance of the data which is required in power calculations. 
+
+Surprises:
+An unexpected result was the lack of a significant block effect. Given that individuals often have strong personal tastes in beer, we anticipated more variance due to participant differences. This might suggest that the beers were too similar in taste or that the participants were simply unable to detect significant differences in taste between the beers. 
+The relatively small range in mean ratings (1.84 for beers, 2.83 for participants) was somewhat surprising, indicating perhaps a homogeneity in taste preference. This makes sense since all participants are of the same friend group and are very similar in age.
+
+Data Concerns:
+Noise and Outliers: There were notable outliers in the ratings, such as scores of 8.5 and 2, which could skew results. However, these did not lead to significant outcomes due to the non-significant ANOVA results. This could imply either that the data was too noisy to discern clear preferences or that the variability in ratings was not substantial enough to be meaningful.
+Data Set Size: With only four participants, the dataset was inherently noisy and potentially less representative of broader beer preferences. This constraint might limit how broadly we can apply the study's conclusions.
+
+In conclusion, while this experiment did not find significant differences in beer preferences, it has provided valuable insights into the application of BIBD in a social setting. Future research should consider these points to refine the study design for more precise and generalizable results.
 
 
 \newpage

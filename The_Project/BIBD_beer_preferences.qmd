@@ -70,7 +70,7 @@ b &= \text{number of blocks in the experiment,} \\
 k &= \text{number of treatments per block}
 \end{aligned}
 $$
-We are interested in testing four kinds of beers: A dark beer, pale ale, IPA, and a generic beer. The brands used for this were Guinness for the dark beer, Sierra Nevada for pale ale option, Pliny the Elder for IPA and Coors light for the generic beer. That is $\text{a}=4$ treatment options. Our introduction explained the desire to limit the number of beers tasted because alcoholic consumption impairs judgement. To medicate the affect of alcohol on judgement we will limit the number of beers to $\text{k}=3$. With the number of participants being $\text{b}=4$ we will insure that only any given beer appears only $\text{r}=3$ across all blocks. We then have:
+We are interested in testing four kinds of beers: A dark beer, pale ale, IPA, and a generic beer. The brands used for this were Guinness for the dark beer, Sierra Nevada for pale ale option, Pliny the Elder for IPA and Coors light for the generic beer. That is $\text{a}=4$ treatment options. Our introduction explained the desire to limit the number of beers tasted because alcoholic consumption impairs judgement. To mediate the affect of alcohol on judgement we will limit the number of beers to $\text{k}=3$. With the number of participants being $\text{b}=4$ we will insure that any given beer appears only $\text{r}=3$ across all blocks. We then have:
 
 $$
 \begin{aligned}
@@ -79,7 +79,7 @@ $$
 12 &= 12
 \end{aligned}
 $$
-Satisfying the relation proved we can have a valid BIBD experiment.
+Satisfying the relation proved, we have a valid BIBD experiment.
 
 Everything was randomized before starting the experiment. With simple R code (can be found in the Appendix) and using `set.seed(530)` we were able to get a correct BIBD set up found in Table 1.
 ```{r echo=FALSE}
@@ -137,7 +137,7 @@ Note that not all $y_{ij}$ exist and we assume $\epsilon_{ij} \sim N(0, \sigma^2
 \textbf{\Large Results}
 \end{center}
 
-The ratings each participants three randomly assigned beers are shown in Table 3. Additionally, the mean rating of each beer type and participant are displayed. It can be observed that the beer type with the highest mean rating is Coors (Generic) at 6.17. On the other hand, Guinness (Dark) received the lowest mean rating at 4.33. The range rating between the highest and lowest mean ratings is 1.84, indicating a relatively small difference between mean ratings of beer type. Regarding participant ratings, the highest mean rating resulted from Beni at 6.5, while the lowest mean rating resulted from Zach at 3.67. The range between these two mean ratings is 2.83, indicating a relatively small difference in participant mean ratings.
+The ratings of each participant's three randomly assigned beers are shown in Table 3. Additionally, the mean rating of each beer type and participant are displayed. It can be observed that the beer type with the highest mean rating is Coors (Generic) at 6.17. On the other hand, Guinness (Dark) received the lowest mean rating at 4.33. The range rating between the highest and lowest mean ratings is 1.84, indicating a relatively small difference between mean ratings of beer type. Regarding participant ratings, the highest mean rating resulted from Beni at 6.5, while the lowest mean rating resulted from Zach at 3.67. The range between these two mean ratings is 2.83, indicating a relatively small difference in participant mean ratings.
 
 There appear to be apparent outliers, such as the ratings of 8.5 or 2, which could indicate a significant block effect. However, the ANOVA table results at the end of this section will disprove that notion. 
 
@@ -203,7 +203,7 @@ kable(rounded_anova_table,
 
 \textbf{\large Post Hoc Analysis}
 
-Even though the ANOVA failed to reject our null hypothesis that all beer types were liked equally. It is still interesting to see confidence intervals for pairwise comparisons. We will use Tukey's HSD test, because we desire to look at all pairs of treatment means.
+Even though the ANOVA failed to reject our null hypothesis that all beer types were liked equally, it is still interesting to see confidence intervals for pairwise comparisons. We will use Tukey's HSD test, because we desire to look at all pairs of treatment means.
 
 ```{r echo=FALSE}
 model <- aov(Rating~Participant+Beer, data = cleaned_data)
@@ -217,7 +217,7 @@ kable(test$Beer[1:6, 1:3],
 ```
 
 
-Table 5 confirms our ANOVA results. That is every Confidence interval contains the value of zero. Interestingly Pairs involving Coors light have the highest estimated difference. We recognize that the block factor is not the factor of interest here, but for the sake of the post hoc we'll calculate the CI's using Tukey's HSD as well.
+Table 5 confirms our ANOVA results. That is, every confidence interval contains the value of zero. Interestingly, pairs involving Coors Light have the highest estimated difference. We recognize that the block factor is not the factor of interest here, but for the sake of the post hoc we'll calculate the CI's using Tukey's HSD as well.
 
 ```{r echo=FALSE}
 kable(test$Participant[1:6, 1:3],

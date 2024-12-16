@@ -59,7 +59,7 @@ This setting became ideal to test the following research question: What is the b
 
 There are four participants in this study: Zach, Jon, Nolan and Beni. All are male, in their young twenties and beer drinkers. These four participants constituted the entire population of interest in our study. Because of this there is no need for a mixed effects model where participants are random.
 
-The constraints of a BIBD design are that when not all treatments can be assigned to each block a subset of those treatments are assigned. To ensure equal precision of estimation of each treatment: Each treatment appears in the same number of block, each treatment has the same replication and there are the same number of pairwise comparisons. A BIBD experiment satisfies the following relation:
+The constraints of a BIBD design are that when not all treatments can be assigned to each block a subset of those treatments are assigned. To ensure equal precision of estimation of each treatment: Each treatment appears in the same number of blocks, each treatment has the same replication and there are the same number of pairwise comparisons. A BIBD experiment satisfies the following relation:
 
 $$
 \begin{aligned}
@@ -70,7 +70,7 @@ b &= \text{number of blocks in the experiment,} \\
 k &= \text{number of treatments per block}
 \end{aligned}
 $$
-We are interested in testing four kinds of beers: A dark beer, pale ale, IPA, and a generic beer. The brands used for this were such as Guinness for the dark beer, Sierra Nevada for pale ale option, Pliny the Elder for IPA and Coors light for the generic beer. That is $\text{a}=4$ treatment options. Our introduction explained the desire to limit the number of beers tasted because alcoholic consumption impairs judgement. To medicate the affect of alcohol on judgement we will limit the number of beers to $\text{k}=3$. With the number of participants being $\text{b}=4$ we will insure that only any given beer appears only $\text{r}=3$ across all blocks. We then have:
+We are interested in testing four kinds of beers: A dark beer, pale ale, IPA, and a generic beer. The brands used for this were Guinness for the dark beer, Sierra Nevada for pale ale option, Pliny the Elder for IPA and Coors light for the generic beer. That is $\text{a}=4$ treatment options. Our introduction explained the desire to limit the number of beers tasted because alcoholic consumption impairs judgement. To medicate the affect of alcohol on judgement we will limit the number of beers to $\text{k}=3$. With the number of participants being $\text{b}=4$ we will insure that only any given beer appears only $\text{r}=3$ across all blocks. We then have:
 
 $$
 \begin{aligned}
@@ -81,7 +81,7 @@ $$
 $$
 Satisfying the relation proved we can have a valid BIBD experiment.
 
-Everything was randomized before starting the experiment. With simple R code (can be found the the Appendix) and using a `set.seed(530)` we were able to get a correct BIBD set up found in Table 1.
+Everything was randomized before starting the experiment. With simple R code (can be found in the Appendix) and using `set.seed(530)` we were able to get a correct BIBD set up found in Table 1.
 ```{r echo=FALSE}
 x <- data.frame(p = c("1","2","3","4"),
                 a = c("C", "B", "D", "D"),
@@ -102,7 +102,7 @@ kable(y,
       caption = "Randomization of Treatments and Participants") %>% 
   column_spec(3, border_left = TRUE)
 ```
-The Materials used for the experiment were red solo cups, a pitcher of water, a tablet for recording the ratings, and a blindfold. The red solo cups allowed for the participants to not feel the can that the beer came in. This was necessary to keep them from making guesses that could affect their judgement.
+The Materials used for the experiment were red solo cups, a pitcher of water, a tablet for recording the ratings, and a blindfold. The red solo cups allowed for the participants to not feel the can/bottle that the beer came in. This was necessary to keep them from making guesses that could affect their judgement.
 
 The experiment was conducted inside of a separate room from the watch party. Participants were blind folded before entry into the room. The blindfold was necessary so that participates did not see what beers were being offered and what beers had already been open. It was best for the experiment that the only sense allowed was the sense of taste. They were led into the room, seated down and told the following:
 \begin{quote}
@@ -137,7 +137,7 @@ Note that not all $y_{ij}$ exist and we assume $\epsilon_{ij} \sim N(0, \sigma^2
 \textbf{\Large Results}
 \end{center}
 
-The ratings for each participant of their three randomly assigned beers are shown in Table 3. Additionally, the mean rating of each beer type and participant are displayed. It can be observed that the beer type with the highest mean rating is Coors (Generic) at 6.17. On the other hand, Guinness (Dark) received the lowest mean rating at 4.33. The range rating between the highest and lowest mean ratings is 1.84, indicating a relatively small difference between mean ratings of beer type. Regarding participant ratings, the highest mean rating resulted from Beni at 6.5, while the lowest mean rating resulted from Zach at 3.67. The range between these two mean ratings is 2.83, indicating a relatively small difference in participant mean ratings.
+The ratings each participants three randomly assigned beers are shown in Table 3. Additionally, the mean rating of each beer type and participant are displayed. It can be observed that the beer type with the highest mean rating is Coors (Generic) at 6.17. On the other hand, Guinness (Dark) received the lowest mean rating at 4.33. The range rating between the highest and lowest mean ratings is 1.84, indicating a relatively small difference between mean ratings of beer type. Regarding participant ratings, the highest mean rating resulted from Beni at 6.5, while the lowest mean rating resulted from Zach at 3.67. The range between these two mean ratings is 2.83, indicating a relatively small difference in participant mean ratings.
 
 There appear to be apparent outliers, such as the ratings of 8.5 or 2, which could indicate a significant block effect. However, the ANOVA table results at the end of this section will disprove that notion. 
 
@@ -228,30 +228,30 @@ kable(test$Participant[1:6, 1:3],
       escape = TRUE)
 ```
 
-Table 6 shows us that there is not block effect. Looking at the estimated differences it seems that Nolan-Jon have the most similar taste, while zach-beni differ most out of the pairs. Ofcourse, neither of this are statistically significant.
+Table 6 shows us that there is no block effect. Looking at the estimated differences it seems that Nolan-Jon have the most similar taste, while Zach-Beni differ most out of the pairs. Of course, neither of these are statistically significant.
 
 \begin{center}
 \textbf{\Large Conclusion}
 \end{center}
 
 
-Main Results:
+**Main Results**:
 The primary aim of this study was to identify the most favored beer type among a group of friends during Thursday Night Football watch parties using a Balanced Incomplete Block Design (BIBD). The results indicate that among the four types of beer tested—Guinness (Dark), Sierra Nevada (Pale Ale), Pliny the Elder (IPA), and Coors (Generic)—Coors received the highest mean rating (6.17), while Guinness received the lowest (4.33). However, the statistical analysis via ANOVA did not show significant differences in preference among the beer types (p-value = 0.40), nor did it show a significant effect from the participants as blocks (p-value = 0.34).
 
-Most Important Results:
+**Most Important Results**:
 The key takeaway from our experiment is that there was no statistically significant preference for any specific beer type among the participants. This suggests that within the small group of friends, beer preference might be more similar than anticipated, or perhaps the design did not capture the variability in taste preference. The lack of significance in the blocking effect indicates that individual participant biases did not significantly influence the ratings, suggesting that we might not need to block by participant in future experiments with similar designs.
 
-Suggestions for Future Experiments:
+**Suggestions for Future Experiments**:
 Increase Sample Size: The small number of participants (four) might not provide enough statistical power to detect differences reliably. A larger sample could help in distinguishing preferences more clearly.
 Expand Beer Selection: Including more varieties or brands within each beer category might reveal more subtle preferences among the participants.
 Better Control Palate Cleansing: Although water was provided to cleanse the palate, the sensory overload from tasting multiple beers might have affected later judgments. The use of bland crackers or taking breaks between tastings could better ensure an even judgement of each beer type.
 Power: For future experiments, the data obtained from this experiment could be used to help calculate the variance of the data which is required in power calculations. 
 
-Surprises:
+**Surprises**:
 An unexpected result was the lack of a significant block effect. Given that individuals often have strong personal tastes in beer, we anticipated more variance due to participant differences. This might suggest that the beers were too similar in taste or that the participants were simply unable to detect significant differences in taste between the beers. 
 The relatively small range in mean ratings (1.84 for beers, 2.83 for participants) was somewhat surprising, indicating perhaps a homogeneity in taste preference. This makes sense since all participants are of the same friend group and are very similar in age.
 
-Data Concerns:
+**Data Concerns**:
 Noise and Outliers: There were notable outliers in the ratings, such as scores of 8.5 and 2, which could skew results. However, these did not lead to significant outcomes due to the non-significant ANOVA results. This could imply either that the data was too noisy to discern clear preferences or that the variability in ratings was not substantial enough to be meaningful.
 Data Set Size: With only four participants, the dataset was inherently noisy and potentially less representative of broader beer preferences. This constraint might limit how broadly we can apply the study's conclusions.
 
@@ -317,24 +317,6 @@ cleaned_data <- pivoted_raw_data %>%
   drop_na(rating)
 ```
 
-```{r eval=FALSE}
-#Table
-col_means <- round(colMeans(raw_data[, -1], na.rm = TRUE), 2)
-
-raw_data_with_col_means <- rbind(raw_data, c("Mean", col_means))
-
-row_means <- round(apply(raw_data[, -1], 1, mean, na.rm = TRUE), 2)
-
-raw_data_with_means <- cbind(raw_data_with_col_means, Row_Mean = c(row_means, NA))
-
-raw_data_with_means %>%
-  kable(
-    caption = "Beer Ratings by Participant",
-    col.names = c("Beers", "Nolan", "Jon", "Beni", "Zach", "Row Means"),
-    align = "c"
-  )
-```
-
 ### Plots
 ```{r eval=FALSE}
 cleaned_data %>% 
@@ -382,7 +364,8 @@ test <- TukeyHSD(model)
 ### Tables
 
 ```{r eval=FALSE}
-#BIBD set (Not using the randomization code because set.seed() changes with different packages loaded)
+#BIBD set (Not using the randomization code because
+#set.seed() changes with different packages loaded)
 x <- data.frame(p = c("1","2","3","4"),
                 a = c("C", "B", "D", "D"),
                 b = c("B", "C", "A", "B"),
@@ -426,13 +409,15 @@ kable(rounded_anova_table,
 kable(test$Beer[1:6, 1:3],
       col.names = c("Pairs", "Estimated Difference", "Lower Bound", "Upper Bound"),
       align = "c",
-      caption = "CI Pairwise Comparison of Beers found with Tukey's HSD Test with sig. level = 0.05",
+      caption = "CI Pairwise Comparison of Beers
+      found with Tukey's HSD Test with sig. level = 0.05",
       digits = 2,
       escape = TRUE)
 kable(test$Participant[1:6, 1:3],
       col.names = c("Pairs", "Estimated Difference", "Lower Bound", "Upper Bound"),
       align = "c",
-      caption = "CI Pairwise Comparison of Participants found with Tukey's HSD Test with sig. level = 0.05",
+      caption = "CI Pairwise Comparison of Participants
+      found with Tukey's HSD Test with sig. level = 0.05",
       digits = 2,
       escape = TRUE)
 ```

@@ -234,7 +234,7 @@ Table 6 shows us that there is not block effect. Looking at the estimated differ
 \textbf{\Large Conclusion}
 \end{center}
 
-Discussion
+
 Main Results:
 The primary aim of this study was to identify the most favored beer type among a group of friends during Thursday Night Football watch parties using a Balanced Incomplete Block Design (BIBD). The results indicate that among the four types of beer tested—Guinness (Dark), Sierra Nevada (Pale Ale), Pliny the Elder (IPA), and Coors (Generic)—Coors received the highest mean rating (6.17), while Guinness received the lowest (4.33). However, the statistical analysis via ANOVA did not show significant differences in preference among the beer types (p-value = 0.40), nor did it show a significant effect from the participants as blocks (p-value = 0.34).
 

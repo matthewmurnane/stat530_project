@@ -1,5 +1,5 @@
 ---
-title: "Beer Preferences for Thursday Night Football: A Blanced Incomplete Block Design Experiment"
+title: "Beer Preferences for Thursday Night Football: A Balanced Incomplete Block Design Experiment"
 author:
   - name: Matthew Murnane
   - name: Ethan Newcomb
